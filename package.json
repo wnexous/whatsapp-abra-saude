@@ -1,0 +1,27 @@
+{
+  "name": "whatsapp-abra-saude",
+  "version": "1.0.0",
+  "description": "bot de whatsapp abra saúde",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/index.js",
+    "start:ts": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev --transpile-only ./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsc": "^2.0.4",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17"
+  }
+}
