@@ -1,6 +1,6 @@
 import { Client, LocalAuth, Message } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
-import { whatsappApiInterface } from "src/interface/whatsappApiInterface";
+import { whatsappApiInterface } from "src/interface/adapters/whatsappApiInterface";
 
 class WhatsappApi {
   whatsapp: Client;
