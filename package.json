@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "bot de whatsapp abra saúde",
   "main": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node ./dist/index.js",
@@ -13,9 +13,11 @@
   "author": "Andre Dal Negro",
   "license": "ISC",
   "dependencies": {
+    "@types/qrcode-terminal": "^0.12.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "qrcode-terminal": "^0.12.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tsc": "^2.0.4",

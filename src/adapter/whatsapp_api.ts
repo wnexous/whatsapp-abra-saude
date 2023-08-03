@@ -1,20 +1,44 @@
-import { Client } from "whatsapp-web.js";
+import { Client, LocalAuth, Message } from "whatsapp-web.js";
+import qrcode from "qrcode-terminal";
+import { whatsappApiInterface } from "src/interface/whatsappApiInterface";
 
 class WhatsappApi {
   whatsapp: Client;
+  isReady: boolean = false;
 
   constructor() {
-    console.log("starting whatsapp adapter");
-
     this.whatsapp = new Client({
       puppeteer: { args: ["--no-sandbox"] },
+      authStrategy: new LocalAuth(),
     });
 
+    this.setup();
   }
 
   setup() {
-    console.log("start setup");
+    console.log("setuping whatsapp adapter");
+    // include qr listener
+    this.whatsapp.on("qr", this.renderQrCode);
+    this.whatsapp.on("ready", () => (this.isReady = true));
     return this.whatsapp.initialize();
+  }
+
+  renderQrCode(qr: string) {
+    console.log("generation qrcode...");
+    qrcode.generate(qr, { small: true });
+  }
+
+  async onReady(callback: () => void) {
+    if (this.isReady) callback();
+    this.whatsapp.on("ready", () => callback());
+  }
+
+  onMessage(callback: (callback: Message) => void) {
+    this.whatsapp.on("message", callback);
+  }
+
+  sendMessageByAuthor(msg: whatsappApiInterface) {
+    return this.whatsapp.sendMessage(msg.chatId, msg.msg);
   }
 }
 
