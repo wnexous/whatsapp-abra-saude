@@ -9,11 +9,13 @@ class WhatsappApi {
     this.whatsapp = new Client({
       puppeteer: { args: ["--no-sandbox"] },
     });
+
   }
 
   setup() {
+    console.log("start setup");
     return this.whatsapp.initialize();
   }
 }
 
-export default WhatsappApi
+export default WhatsappApi;

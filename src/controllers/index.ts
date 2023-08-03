@@ -4,7 +4,8 @@
  *
  */
 
-import WhatsappApi from "src/adapter/whatsapp_api";
-
 // deploy whatsapp
-new WhatsappApi();
+
+export default function DeployAdapters() {
+  console.log("starting deployment controllers");
+}
