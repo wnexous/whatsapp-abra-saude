@@ -1,12 +1,14 @@
 import { Client, LocalAuth, Message } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import { whatsappApiInterface } from "src/interface/adapters/whatsappApiInterface";
+import { LogtimerWhatsappAdapter } from "../utils/logtimer/adapter/whatsapp_api";
 
 class WhatsappApi {
   whatsapp: Client;
   isReady: boolean = false;
 
   constructor() {
+    console.time(LogtimerWhatsappAdapter.deployApiId);
     this.whatsapp = new Client({
       puppeteer: { args: ["--no-sandbox"] },
       authStrategy: new LocalAuth(),
@@ -19,7 +21,10 @@ class WhatsappApi {
     console.log("setuping whatsapp adapter");
     // include qr listener
     this.whatsapp.on("qr", this.renderQrCode);
-    this.whatsapp.on("ready", () => (this.isReady = true));
+    this.whatsapp.on("ready", () => {
+      this.isReady = true;
+      console.timeEnd(LogtimerWhatsappAdapter.deployApiId);
+    });
     return this.whatsapp.initialize();
   }
 

@@ -4,7 +4,8 @@
  *
  */
 
-import WhatsappApi from "../adapter/whatsapp_api.js";
+import WhatsappApi from "../adapter/whatsapp_api";
+
 
 // deploy whatsapp
 export default function DeployAdapters() {

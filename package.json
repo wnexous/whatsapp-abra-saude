@@ -7,12 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node ./dist/index.js",
-    "start:ts": "ts-node src/index.ts",
-    "start:dev": "ts-node-dev --transpile-only ./src/index.ts"
+    "start:ts": "npx prisma migrate dev --name ts && ts-node src/index.ts",
+    "start:dev": "npx prisma migrate dev --name dev && ts-node-dev --transpile-only ./src/index.ts"
   },
   "author": "Andre Dal Negro",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.1.1",
     "@types/qrcode-terminal": "^0.12.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
