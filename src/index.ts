@@ -1,3 +1,6 @@
+const controller = "./controllers/index"
+import { DeployInstances } from "./deployments";
 
-import DeployAdapters from "./controllers/index";
-DeployAdapters();
+
+DeployInstances();
+

@@ -1,7 +1,7 @@
 import { Client, LocalAuth, Message } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
-import { whatsappApiInterface } from "src/interface/adapters/whatsappApiInterface";
-import { LogtimerWhatsappAdapter } from "../utils/logtimer/adapter/whatsapp_api";
+import { LogtimerWhatsappAdapter } from "../../utils/logtimer/adapter/whatsapp_api";
+import { sendMessageByAuthorInterface } from "./interface";
 
 class WhatsappApi {
   whatsapp: Client;
@@ -42,7 +42,7 @@ class WhatsappApi {
     this.whatsapp.on("message", callback);
   }
 
-  sendMessageByAuthor(msg: whatsappApiInterface) {
+  sendMessageByAuthor(msg: sendMessageByAuthorInterface) {
     return this.whatsapp.sendMessage(msg.chatId, msg.msg);
   }
 }

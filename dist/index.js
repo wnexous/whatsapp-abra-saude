@@ -1,7 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = __importDefault(require("./controllers/index"));
-(0, index_1.default)();
+var controller = "./controllers/index";
+var deployments_1 = require("./deployments");
+(0, deployments_1.DeployInstances)();
