@@ -13,6 +13,7 @@ export default class MenuMapping {
 
         console.log("Iniciando mapeamento de menus");
         const pathname = __dirname + "/../../menus/"
+        console.log('pathname', pathname)
 
         let readMenuFolder = fs.readdirSync(pathname, {
             recursive: true
@@ -21,25 +22,28 @@ export default class MenuMapping {
         // tranform read buffer to string array
         readMenuFolder = readMenuFolder.map((r) => `${r}`)
 
-        console.log('readMenuFolder', readMenuFolder)
-
         const mapDirOnObj = []
 
-        for(let row of readMenuFolder) {
-            const stringSplited = row.split("\\")
+        for (let row of readMenuFolder) {
 
+            const stringSplited = row.split("\\")
+            console.log("stringSplited[stringSplited.length - 1]", stringSplited[stringSplited.length - 1]);
             if (stringSplited[stringSplited.length - 1] == "index.js") {
+                // console.log('row', row)
 
                 const functionPath = stringSplited.slice(0, stringSplited.length - 1)
                 const functionPathWithBar = functionPath.join("/")
-                const functionFetched = await import( "../../menus/" + functionPathWithBar + "/index.js")
-                mapDirOnObj.push({
+                const functionFetched = await import("../../menus/" + functionPathWithBar + "/index.js")
+                const menuBuilted = {
                     name: functionPath[functionPath.length - 1] || "_default",
                     path: functionPathWithBar,
                     function: functionFetched.default,
-                    functionName:functionFetched.default.name,
+                    functionName: functionFetched.default.name,
                     hasFunction: !!functionFetched.default.name
-                })
+                }
+
+                console.log("menuBuilted", menuBuilted);
+                mapDirOnObj.push(menuBuilted)
             }
 
 
