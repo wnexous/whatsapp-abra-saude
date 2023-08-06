@@ -1,7 +1,7 @@
 import { Client, LocalAuth, Message } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import { LogtimerWhatsappAdapter } from "../../utils/logtimer/adapter/whatsapp_api";
-import { sendMessageByAuthorInterface } from "./interface";
+import { sendMessageByAuthorInterface, whatsappApiCallbackStupInterface, whatsappApionMessage } from "./interface";
 
 class WhatsappApi {
   whatsapp: Client;
@@ -14,18 +14,18 @@ class WhatsappApi {
       authStrategy: new LocalAuth(),
     });
 
-    this.setup();
   }
 
-  setup() {
-    console.log("setuping whatsapp adapter");
-    // include qr listener
+  setup(callback?: whatsappApiCallbackStupInterface) {
+
     this.whatsapp.on("qr", this.renderQrCode);
     this.whatsapp.on("ready", () => {
       this.isReady = true;
       console.timeEnd(LogtimerWhatsappAdapter.deployApiId);
+      callback()
     });
-    return this.whatsapp.initialize();
+
+    this.whatsapp.initialize();
   }
 
   renderQrCode(qr: string) {
@@ -33,13 +33,12 @@ class WhatsappApi {
     qrcode.generate(qr, { small: true });
   }
 
-  async onReady(callback: () => void) {
-    if (this.isReady) callback();
-    this.whatsapp.on("ready", () => callback());
-  }
-
-  onMessage(callback: (callback: Message) => void) {
-    this.whatsapp.on("message", callback);
+  onMessage(callback: (callback: whatsappApionMessage) => void) {
+    this.whatsapp.on("message", msg => callback({
+      authorId: msg.from,
+      body: msg.body,
+      others: msg
+    }));
   }
 
   sendMessageByAuthor(msg: sendMessageByAuthorInterface) {

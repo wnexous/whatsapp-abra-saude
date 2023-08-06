@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import { configWebApi } from "./config";
+import { menuApiCallbackSetupInterface } from "./interface";
 
 
 export default class WebApi {
@@ -10,9 +11,10 @@ export default class WebApi {
     this.setup()
   }
 
-  setup() {
+  setup(callback?: menuApiCallbackSetupInterface) {
     this.app.listen(configWebApi.port, () => {
       console.log("WebApi ouvindo na porta: " + configWebApi.port);
+      callback()
     })
   }
 

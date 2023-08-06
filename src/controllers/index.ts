@@ -1,14 +1,8 @@
-import MenuMapping from "./MenuMapping"
+import MessageManager from "./MessageManager"
 
-/**
- *
- * Deploy Whatsapp
- *
- */
-const DeployController = () => {
-  return {
-    menuMapping: new MenuMapping(),
-  }
+
+const DeployController = {
+  MessageManager
 }
 
 export default DeployController
