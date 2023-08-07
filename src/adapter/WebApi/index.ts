@@ -7,7 +7,6 @@ export default class WebApi {
   app: Express
   constructor() {
     this.app = express()
-
     this.setup()
   }
 

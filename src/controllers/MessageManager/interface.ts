@@ -1,7 +1,9 @@
-import WhatsappApi from "src/adapter/WhatsappApi";
-import { builtMenuInterface } from "../../adapter/MenuMapping/interface";
+import WhatsappAdapter from "src/adapter/WhatsappAdapter";
+import { builtMenuInterface } from "../MenuController/interface";
+import UserController from "../UserManager";
 
 export interface messageManagerContructorInterface {
-    whatsApp: WhatsappApi,
-    menus: builtMenuInterface[]
+    whatsappAdapter: WhatsappAdapter,
+    menuController: builtMenuInterface[],
+    userController: UserController
 }

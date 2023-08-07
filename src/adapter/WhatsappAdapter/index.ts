@@ -3,7 +3,7 @@ import qrcode from "qrcode-terminal";
 import { LogtimerWhatsappAdapter } from "../../utils/logtimer/adapter/whatsapp_api";
 import { sendMessageByAuthorInterface, whatsappApiCallbackStupInterface, whatsappApionMessage } from "./interface";
 
-class WhatsappApi {
+export default class  {
   whatsapp: Client;
   isReady: boolean = false;
 
@@ -46,4 +46,3 @@ class WhatsappApi {
   }
 }
 
-export default WhatsappApi;

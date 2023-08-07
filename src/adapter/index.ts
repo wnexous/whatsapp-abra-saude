@@ -1,14 +1,11 @@
-import DatabaseApi from "./Database"
+import DatabaseAdapter from "./DatabaseAdapter" 
+import WhatsappAdapter from "./WhatsappAdapter"
 import WebApi from "./WebApi"
-import WhatsappApi from "./WhatsappApi"
-import MenuMapping from "../adapter/MenuMapping"
-
 
 const DeployAdapter = {
-    WhatsappApi,
+    WhatsappAdapter,
     WebApi,
-    DatabaseApi,
-    MenuMapping
+    DatabaseAdapter,
 }
 
 export default DeployAdapter

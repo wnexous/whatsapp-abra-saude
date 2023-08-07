@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "commonjs",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "start": " tsc && node ./dist/index.js",
     "complete": "npx prisma migrate dev --name ts && ts-node src/index.ts",
     "start:dev": "npx prisma migrate dev --name dev && ts-node-dev --transpile-only ./src/index.ts"
   },
