@@ -1,4 +1,4 @@
-import WhatsappAdapter from "src/adapter/WhatsappAdapter";
+import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import { builtMenuInterface } from "../MenuController/interface";
 import UserController from "../UserManager";
 

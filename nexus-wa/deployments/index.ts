@@ -1,4 +1,4 @@
-import { builtMenuInterface } from "src/controllers/MenuController/interface"
+import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interface"
 import DeployAdapter from "../adapter"
 import DeployController from "../controllers"
 import { PrismaClient } from "@prisma/client"
