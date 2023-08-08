@@ -14,6 +14,6 @@ model User {
   id          Int      @id @default(autoincrement())
   phoneId     String   @unique
   currentMenu String
-  updateAt    DateTime @updatedAt
+  updateat    DateTime @updatedAt
   createAt    DateTime @default(now())
 }
