@@ -23,8 +23,6 @@ export interface menuPropsInterface {
         id: string;
         phoneId: string;
         currentMenu: string;
-        updateAt: Date;
-        createAt: Date;
     }
 }
 
