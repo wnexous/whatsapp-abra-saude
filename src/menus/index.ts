@@ -1,7 +1,7 @@
-export default function test() {
-    console.log("oie")
-}
+import { NexusMenuInterface } from "nexus-wa/global/interfaces/messageController";
 
-export const getStaticProps = () => { 
-    console.log("MAGIAS");
+export default function handle(props: NexusMenuInterface) {
+    console.log("props", props);
+
+    return props.message.body
 }

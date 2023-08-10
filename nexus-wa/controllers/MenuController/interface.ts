@@ -1,7 +1,9 @@
 export interface builtMenuInterface {
     name: string
     path: string,
-    functionsFile: Function,
+    functionsFile: {
+        default?: Function
+    },
     hasDefaultFunction: boolean,
     id: string
 }

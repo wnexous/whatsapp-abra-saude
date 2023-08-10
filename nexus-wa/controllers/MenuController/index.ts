@@ -40,7 +40,6 @@ export default class MenuController {
                 mapDirOnObj.push(menuBuilted)
             }
         }
-        console.log(mapDirOnObj);
         this.menuList = mapDirOnObj
         callback(mapDirOnObj)
     }

@@ -5,7 +5,7 @@ import { PrismaClient } from "@prisma/client"
 
 export const DeployInstances = async () => {
     const { WhatsappAdapter, DatabaseAdapter, WebApi } = DeployAdapter
-    const { MessageManager, UserManager, MenuController } = DeployController
+    const { MessageManager, UserManager, MenuController, HooksController } = DeployController
 
     console.log("Starting deploy instances");
     // ADAPTERD
@@ -14,10 +14,12 @@ export const DeployInstances = async () => {
     // const webApi = new WebApi()
 
     // CONTROLLER
+    const hooksController = new HooksController()
     const menuController = new MenuController()
     const userController = new UserManager({
         databaseAdapter,
-        whatsappAdapter
+        whatsappAdapter,
+        menuController
     })
 
     // wait menus is mappeds to skip - when menu is mapped, the promisse is resolved by callback
@@ -27,6 +29,7 @@ export const DeployInstances = async () => {
 
     // also controllers need inject other controllers or adapters inside constructor
     new MessageManager({
+        hooksController,
         userController,
         whatsappAdapter,
         menuController: menuMapInstance,

@@ -9,7 +9,7 @@ export interface sendMessageByAuthorInterface {
 export type whatsappApiCallbackStupInterface = () => void
 
 export interface whatsappApionMessage {
-    authorId: string
+    phoneId: string
     body: string
     others: Message
 }

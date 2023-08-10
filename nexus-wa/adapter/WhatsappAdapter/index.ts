@@ -3,11 +3,12 @@ import qrcode from "qrcode-terminal";
 import { LogtimerWhatsappAdapter } from "../../utils/logtimer/adapter/whatsapp_api";
 import { sendMessageByAuthorInterface, whatsappApiCallbackStupInterface, whatsappApionMessage } from "./interface";
 
-export default class  {
+export default class {
   whatsapp: Client;
   isReady: boolean = false;
 
   constructor() {
+    console.log("Starting whatsapp Adapter");
     console.time(LogtimerWhatsappAdapter.deployApiId);
     this.whatsapp = new Client({
       puppeteer: { args: ["--no-sandbox"] },
@@ -35,7 +36,7 @@ export default class  {
 
   onMessage(callback: (callback: whatsappApionMessage) => void) {
     this.whatsapp.on("message", msg => callback({
-      authorId: msg.from,
+      phoneId: msg.from,
       body: msg.body,
       others: msg
     }));
