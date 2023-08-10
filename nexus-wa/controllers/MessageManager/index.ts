@@ -20,15 +20,17 @@ export default class MessageManager {
         this.setup()
     }
 
-    setup() {
-        this.whatsappAdapter.onMessage(async msg => {
+    async setup() {
 
+        this.whatsappAdapter.onMessage(async msg => {
             const userProfile = await this.userController.fetchUserProfile({ phoneId: msg.phoneId })
             const currentMenu = this.fetchMenu({ menuId: userProfile.currentMenu })
+            const hooksObj = this.hooksController.getHookObj()
+            console.log('hooksObj', hooksObj)
 
             // TRY RUN FUNCTION
             try {
-                const hooksObj = await this.hooksController.hooksObj()
+
                 const functionInjectProps: NexusMenuInterface = {
                     message: msg,
                     menu: {
@@ -48,6 +50,4 @@ export default class MessageManager {
     fetchMenu(props: { menuId: string }) {
         return this.menuController.find(menu => menu.id == props.menuId) || this.menuController.find(menu => menu.name == CONFIG_MENU_MAPPING.mainMenuName)
     }
-
-
 }

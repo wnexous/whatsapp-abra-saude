@@ -3,15 +3,19 @@ import fs from "fs"
 import { defaultHooksInterface } from "./interface";
 export default class HooksController {
     hooksConfig = CONFIG_HOOKS_CONTROLLER
-    constructor() { }
+    hookObj = {}
+
+    constructor() {
+        this.hooksObj()
+    }
 
     private async readFileByDir(props: { hookList: string[], hookPath: string }) {
         const hooksList: defaultHooksInterface[] = []
         for (const rowRead of props.hookList) {
             const splitRow = rowRead.split("\\")
             const fileName = splitRow[splitRow.length - 1]
-            if (fileName.toLowerCase().endsWith(".js")) {
 
+            if (fileName.toLowerCase() == "index.js") {
                 const hookPath = props.hookPath + rowRead
                 const readDefaultFunction = await import(hookPath)
 
@@ -48,22 +52,22 @@ export default class HooksController {
 
     }
 
-    async hooksObj() {
+    private async hooksObj() {
         const hookDefaultList = await this.readDefaultHooks()
-        const hookUserList = await this.readUserHooks()
         const hooksObj = {}
 
         hookDefaultList.forEach(hook => {
             if (hook.hookName in hooksObj) throw new Error(`hook ${hook.hookName} already exists. Please choose other hook name. Path: ${hook.hookPath}`)
             hooksObj[hook.hookName] = hook.function
+
+            console.log(hook.hookName);
         })
 
-        hookUserList.forEach(hook => {
-            if (hook.hookName in hooksObj) throw new Error(`hook ${hook.hookName} already exists. Please choose other hook name. Path: ${hook.hookPath}`)
-            hooksObj[hook.hookName] = hook.function
-        })
+        this.hookObj = hooksObj
+    }
 
-        return hooksObj
+    getHookObj() {
+        return this.hookObj
     }
 
 }
