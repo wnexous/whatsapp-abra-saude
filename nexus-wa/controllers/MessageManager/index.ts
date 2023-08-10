@@ -1,9 +1,9 @@
-import { NexusMenuInterface } from "nexus-wa/global/interfaces/messageController";
 import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interface";
 import { CONFIG_MENU_MAPPING } from "../MenuController/config";
-import { messageManagerContructorInterface } from "./interface";
+import { menuPropsInterface, menuReturnInterface, messageManagerContructorInterface } from "./interface";
 import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import UserController from "../UserManager";
+import Hooks from "../../hooks/index.js";
 
 export default class MessageManager {
     protected whatsappAdapter: WhatsappAdapter
@@ -18,7 +18,6 @@ export default class MessageManager {
     }
 
     async setup() {
-
         this.whatsappAdapter.onMessage(async msg => {
             const userProfile = await this.userController.fetchUserProfile({ phoneId: msg.phoneId })
             const currentMenu = this.fetchMenu({ menuId: userProfile.currentMenu })
@@ -26,16 +25,25 @@ export default class MessageManager {
             // TRY RUN FUNCTION
             try {
 
-                const functionInjectProps: NexusMenuInterface = {
+                const functionInjectProps: menuPropsInterface = {
                     message: msg,
+                    hooks: Hooks,
                     menu: {
                         currentMenu: currentMenu,
                         menuList: this.menuController
                     },
                     userProfile: userProfile
                 }
-                const runFunction = await currentMenu.functionsFile.default(functionInjectProps)
-                this.whatsappAdapter.sendMessageByAuthor({ chatId: msg.phoneId, msg: runFunction })
+                const runFunction: menuReturnInterface[] = await currentMenu.functionsFile.default(functionInjectProps)
+                if (runFunction.length > 0) {
+                    for (const message of runFunction) {
+                        message.messageDelay && await new Promise((resolve) => setTimeout(resolve, message.messageDelay))
+
+                        if (message.type == "message") this.whatsappAdapter.sendMessageByAuthor({ chatId: msg.phoneId, msg: message.content })
+
+                    }
+                }
+
             } catch (error) {
                 new Error("error when try run function inside menu. Error message:", error)
             }

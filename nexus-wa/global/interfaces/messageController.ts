@@ -1,17 +1,4 @@
-import { whatsappApionMessage } from "nexus-wa/adapter/WhatsappAdapter/interface";
-import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interface";
+import { menuPropsInterface, menuReturnInterface } from "nexus-wa/controllers/MessageManager/interface";
 
-export interface NexusMenuInterface {
-    message: whatsappApionMessage
-    menu: {
-        currentMenu: builtMenuInterface
-        menuList: builtMenuInterface[]
-    }
-    userProfile: {
-        id: string;
-        phoneId: string;
-        currentMenu: string;
-        updateAt: Date;
-        createAt: Date;
-    }
-}
+export type NexusReturnMenuInterface = menuReturnInterface[]
+export type NexusPropsMenuInterface = menuPropsInterface
