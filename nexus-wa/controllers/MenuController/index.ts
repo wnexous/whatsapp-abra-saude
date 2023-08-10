@@ -7,7 +7,11 @@ import crypto from "crypto"
 export default class MenuController {
     menuPath: string
     menuList: builtMenuInterface[] = []
-    constructor() { }
+    constructor() {
+        console.log("[controller] starting MenuController");
+
+
+     }
 
     async setup(callback?: menuMappingCallbackStupInterface) {
         const pathname = __dirname + "/" + CONFIG_MENU_MAPPING.menuFolderPath

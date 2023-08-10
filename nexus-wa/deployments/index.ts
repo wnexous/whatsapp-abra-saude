@@ -4,8 +4,8 @@ import DeployController from "../controllers"
 import { PrismaClient } from "@prisma/client"
 
 export const DeployInstances = async () => {
-    const { WhatsappAdapter, DatabaseAdapter, WebApi } = DeployAdapter
-    const { MessageManager, UserManager, MenuController } = DeployController
+    const { WhatsappAdapter, WebApi } = DeployAdapter
+    const { MessageManager, UserManager, MenuController, DataController } = DeployController
 
     console.log("Starting deploy instances");
     // ADAPTERD
@@ -15,6 +15,7 @@ export const DeployInstances = async () => {
 
     // CONTROLLER
     const menuController = new MenuController()
+    const dataController = new DataController()
     const userController = new UserManager({
         databaseAdapter,
         whatsappAdapter,
@@ -31,6 +32,7 @@ export const DeployInstances = async () => {
         userController,
         whatsappAdapter,
         menuController: menuMapInstance,
+        dataController
     })
 
 }

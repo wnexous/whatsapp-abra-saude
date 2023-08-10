@@ -3,17 +3,22 @@ import { CONFIG_MENU_MAPPING } from "../MenuController/config";
 import { menuPropsInterface, menuReturnInterface, messageManagerContructorInterface } from "./interface";
 import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import UserController from "../UserManager";
-import Hooks from "../../hooks/index.js";
+import HooksController from "../HooksController";
+import DataController from "../DataController";
 
 export default class MessageManager {
     protected whatsappAdapter: WhatsappAdapter
     protected menuController: builtMenuInterface[]
     protected userController: UserController
+    protected dataController: DataController
 
-    constructor({ whatsappAdapter, menuController, userController }: messageManagerContructorInterface) {
+    constructor({ whatsappAdapter, menuController, userController, dataController }: messageManagerContructorInterface) {
+        console.log("[controller] starting MessageManager");
+
         this.whatsappAdapter = whatsappAdapter
         this.menuController = menuController
         this.userController = userController
+        this.dataController = dataController
         this.setup()
     }
 
@@ -22,12 +27,14 @@ export default class MessageManager {
             const userProfile = await this.userController.fetchUserProfile({ phoneId: msg.phoneId })
             const currentMenu = this.fetchMenu({ menuId: userProfile.currentMenu })
 
+            // instance hooks
+            const instanceUserHooks = new HooksController({ ...userProfile, userController: this.userController, menuController: this.menuController, dataController: this.dataController })
+
             // TRY RUN FUNCTION
             try {
-
                 const functionInjectProps: menuPropsInterface = {
                     message: msg,
-                    hooks: Hooks,
+                    hooks: instanceUserHooks,
                     menu: {
                         currentMenu: currentMenu,
                         menuList: this.menuController

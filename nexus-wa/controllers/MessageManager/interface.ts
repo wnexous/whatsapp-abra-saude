@@ -2,14 +2,15 @@ import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import { builtMenuInterface } from "../MenuController/interface";
 import UserController from "../UserManager";
 import { whatsappApionMessage } from "nexus-wa/adapter/WhatsappAdapter/interface";
-import Hooks from "nexus-wa/hooks";
+import HooksController from "../HooksController";
+import DataController from "../DataController";
 
 export interface messageManagerContructorInterface {
     whatsappAdapter: WhatsappAdapter,
     menuController: builtMenuInterface[],
     userController: UserController,
+    dataController: DataController
 }
-type HookesInterface = typeof Hooks
 
 export interface menuPropsInterface {
     message: whatsappApionMessage
@@ -17,7 +18,7 @@ export interface menuPropsInterface {
         currentMenu: builtMenuInterface
         menuList: builtMenuInterface[]
     },
-    hooks: HookesInterface
+    hooks: HooksController
     userProfile: {
         id: string;
         phoneId: string;
