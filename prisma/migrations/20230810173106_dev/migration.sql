@@ -3,7 +3,7 @@ CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
     `phoneId` VARCHAR(191) NOT NULL,
     `currentMenu` VARCHAR(191) NOT NULL,
-    `updateAt` DATETIME(3) NOT NULL,
+    `updateat` DATETIME(3) NOT NULL,
     `createAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     UNIQUE INDEX `User_phoneId_key`(`phoneId`),
