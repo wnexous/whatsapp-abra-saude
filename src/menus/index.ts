@@ -10,7 +10,17 @@ export default function handle({ message, hooks }: NexusPropsMenuInterface): Nex
 *Mensagem de:* ${message.phoneId}
 *LastMessage:* ${lastMessage.data}
 *Body:* ${message.body}
+
+para acessar menu de teste, digite: *teste*
     `
+    if (message.body == "teste") {
+        hooks.changeMenuByPath({ menuPath: "/testes" })
+        return [
+            { type: "message", content: "Indo para o menu de testes" }
+        ]
+
+    }
+
     return [
         { type: "message", content: buildMessage }
     ]

@@ -11,7 +11,7 @@ export default class MenuController {
         console.log("[controller] starting MenuController");
 
 
-     }
+    }
 
     async setup(callback?: menuMappingCallbackStupInterface) {
         const pathname = __dirname + "/" + CONFIG_MENU_MAPPING.menuFolderPath
@@ -46,6 +46,11 @@ export default class MenuController {
         }
         this.menuList = mapDirOnObj
         callback(mapDirOnObj)
+        this.saveMenu()
+    }
+
+    saveMenu() {
+        fs.writeFileSync("./data/menuList.json", JSON.stringify(this.menuList))
     }
 
 
