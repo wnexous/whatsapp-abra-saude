@@ -3,20 +3,17 @@ import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interfac
 import { CONFIG_MENU_MAPPING } from "../MenuController/config";
 import { messageManagerContructorInterface } from "./interface";
 import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
-import HooksController from "../HooksController";
 import UserController from "../UserManager";
 
 export default class MessageManager {
     protected whatsappAdapter: WhatsappAdapter
     protected menuController: builtMenuInterface[]
     protected userController: UserController
-    protected hooksController: HooksController
 
-    constructor({ whatsappAdapter, menuController, userController, hooksController }: messageManagerContructorInterface) {
+    constructor({ whatsappAdapter, menuController, userController }: messageManagerContructorInterface) {
         this.whatsappAdapter = whatsappAdapter
         this.menuController = menuController
         this.userController = userController
-        this.hooksController = hooksController
         this.setup()
     }
 
@@ -25,8 +22,6 @@ export default class MessageManager {
         this.whatsappAdapter.onMessage(async msg => {
             const userProfile = await this.userController.fetchUserProfile({ phoneId: msg.phoneId })
             const currentMenu = this.fetchMenu({ menuId: userProfile.currentMenu })
-            const hooksObj = this.hooksController.getHookObj()
-            console.log('hooksObj', hooksObj)
 
             // TRY RUN FUNCTION
             try {
@@ -37,7 +32,6 @@ export default class MessageManager {
                         currentMenu: currentMenu,
                         menuList: this.menuController
                     },
-                    hooks: hooksObj,
                     userProfile: userProfile
                 }
                 const runFunction = await currentMenu.functionsFile.default(functionInjectProps)

@@ -1,5 +1,4 @@
 import { whatsappApionMessage } from "nexus-wa/adapter/WhatsappAdapter/interface";
-import { defaultHooksInterface } from "nexus-wa/controllers/HooksController/interface";
 import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interface";
 
 export interface NexusMenuInterface {
@@ -8,7 +7,6 @@ export interface NexusMenuInterface {
         currentMenu: builtMenuInterface
         menuList: builtMenuInterface[]
     }
-    hooks: {}
     userProfile: {
         id: string;
         phoneId: string;
