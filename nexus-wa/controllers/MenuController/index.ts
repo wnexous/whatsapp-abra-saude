@@ -7,6 +7,7 @@ import crypto from "crypto"
 export default class MenuController {
     menuPath: string
     menuList: builtMenuInterface[] = []
+    currentJsonFile: builtMenuInterface[]
     constructor() {
         console.log("[controller] starting MenuController");
     }
@@ -15,6 +16,10 @@ export default class MenuController {
 
         const pathname = __dirname + "/" + CONFIG_MENU_MAPPING.menuFolderPath
         let readMenuFolder = fs.readdirSync(pathname, { recursive: true })
+
+        // get current json file
+        this.currentJsonFile = this.getMenuFile()
+
 
         // tranform read buffer to string array
         readMenuFolder = readMenuFolder.map((r) => `${r}`)
@@ -36,12 +41,15 @@ export default class MenuController {
                 try {
                     const functionFetched = await import(filePathToImport)
 
+                    // find to verify if menu has exists and pick UUID
+                    const currentMenuUUID = this.currentJsonFile.find(f => f.path == functionPathWithBar)
+
                     const menuBuilted: builtMenuInterface = {
                         name: functionPath[functionPath.length - 1] || CONFIG_MENU_MAPPING.mainMenuName,
-                        path: functionPathWithBar,
+                        path: "/" + functionPathWithBar,
                         functionsFile: functionFetched,
                         hasDefaultFunction: !!functionFetched.default.name,
-                        id: crypto.randomUUID()
+                        id: currentMenuUUID.id || crypto.randomUUID()
                     }
 
                     // push menu obj on array
@@ -61,6 +69,10 @@ export default class MenuController {
 
     saveMenu() {
         fs.writeFileSync("./data/menuList.json", JSON.stringify(this.menuList))
+    }
+    getMenuFile() {
+        const fetchFile = fs.readFileSync("./data/menuList.json", "utf-8")
+        return JSON.parse(fetchFile)
     }
     getMenuList() {
         return this.menuList
