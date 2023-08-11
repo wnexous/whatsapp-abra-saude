@@ -4,11 +4,12 @@ import { DefaultArgs } from "@prisma/client/runtime/library";
 import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import { CONFIG_MENU_MAPPING } from "../MenuController/config";
 import MenuController from "../MenuController";
+import { builtMenuInterface } from "../MenuController/interface";
 
 export default class UserController {
     protected databaseAdapter: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
     protected whatsappAdapter: WhatsappAdapter
-    protected menuController: MenuController
+    protected menuController: builtMenuInterface[]
     constructor({ databaseAdapter, whatsappAdapter, menuController }: userManagerContructorInterface) {
 
         console.log("[controller] starting UserController");
@@ -29,7 +30,7 @@ export default class UserController {
     }
 
     async createUserByPhoneId(props: { phoneId: string }) {
-        const fetchDefaultMenu = this.menuController.menuList.find(menu => menu.name == CONFIG_MENU_MAPPING.mainMenuName)
+        const fetchDefaultMenu = this.menuController.find(menu => menu.name == CONFIG_MENU_MAPPING.mainMenuName)
         return await this.databaseAdapter.user
             .create({
                 data: {
@@ -45,5 +46,9 @@ export default class UserController {
                 where: { phoneId: props.phoneId },
                 data: { currentMenu: props.menuId }
             })
+    }
+
+    reloadMenuController(menuList: builtMenuInterface[]) {
+        this.menuController = menuList
     }
 }

@@ -7,10 +7,10 @@ import HooksController from "../HooksController";
 import DataController from "../DataController";
 
 export default class MessageManager {
-    protected whatsappAdapter: WhatsappAdapter
-    protected menuController: builtMenuInterface[]
-    protected userController: UserController
-    protected dataController: DataController
+    private whatsappAdapter: WhatsappAdapter
+    private menuController: builtMenuInterface[]
+    private userController: UserController
+    private dataController: DataController
 
     constructor({ whatsappAdapter, menuController, userController, dataController }: messageManagerContructorInterface) {
         console.log("[controller] starting MessageManager");
@@ -56,7 +56,11 @@ export default class MessageManager {
             }
         })
     }
-    fetchMenu(props: { menuId: string }) {
+    private fetchMenu(props: { menuId: string }) {
         return this.menuController.find(menu => menu.id == props.menuId) || this.menuController.find(menu => menu.name == CONFIG_MENU_MAPPING.mainMenuName)
+    }
+
+    reloadMenuController(menuList: builtMenuInterface[]) {
+        this.menuController = menuList
     }
 }

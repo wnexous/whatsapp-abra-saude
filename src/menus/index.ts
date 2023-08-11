@@ -11,14 +11,15 @@ export default function handle({ message, hooks }: NexusPropsMenuInterface): Nex
     if (message.body == "teste") {
         hooks.changeMenuByPath({ menuPath: "/testes" })
         return [
-            { type: "message", content: "Indo para o menu de testes" },
+            { type: "message", content: "PolenguinhoOOOONEXUSIndo OIEpara o menu de testes" },
             { type: "message", content: menuTeste() },
         ]
 
     }
 
     return [
-        { type: "message", content: menuIndex() }
+        { type: "message", content: menuIndex() },
+        { type: "message", content: "12yoie1" },
     ]
 
 }
@@ -27,6 +28,6 @@ export default function handle({ message, hooks }: NexusPropsMenuInterface): Nex
 export const menuIndex = () => `
 
 *MENU PRINCIPAL*
-
+polenta
 para ir ao menu de teste, digite *teste*
 `

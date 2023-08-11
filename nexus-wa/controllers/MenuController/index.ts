@@ -9,11 +9,10 @@ export default class MenuController {
     menuList: builtMenuInterface[] = []
     constructor() {
         console.log("[controller] starting MenuController");
-
-
     }
 
     async setup(callback?: menuMappingCallbackStupInterface) {
+
         const pathname = __dirname + "/" + CONFIG_MENU_MAPPING.menuFolderPath
         let readMenuFolder = fs.readdirSync(pathname, { recursive: true })
 
@@ -29,19 +28,30 @@ export default class MenuController {
 
             if (stringSplited[stringSplited.length - 1] == CONFIG_MENU_MAPPING.indexFileName) {
                 const functionPath = stringSplited.slice(0, stringSplited.length - 1)
-                const functionPathWithBar = "/" + functionPath.join("/")
-                const functionFetched = await import(CONFIG_MENU_MAPPING.menuFolderPath + functionPathWithBar + "/" + CONFIG_MENU_MAPPING.indexFileName)
+                const functionPathWithBar = functionPath.join("/")
+                const filePathToImport = __dirname + CONFIG_MENU_MAPPING.menuFolderPath + functionPathWithBar + "/" + CONFIG_MENU_MAPPING.indexFileName
 
-                const menuBuilted: builtMenuInterface = {
-                    name: functionPath[functionPath.length - 1] || CONFIG_MENU_MAPPING.mainMenuName,
-                    path: functionPathWithBar,
-                    functionsFile: functionFetched,
-                    hasDefaultFunction: !!functionFetched.default.name,
-                    id: crypto.randomUUID()
+                // to live reload works, need delete module cache before import
+                delete require.cache[require.resolve(filePathToImport)];
+                try {
+                    const functionFetched = await import(filePathToImport)
+
+                    const menuBuilted: builtMenuInterface = {
+                        name: functionPath[functionPath.length - 1] || CONFIG_MENU_MAPPING.mainMenuName,
+                        path: functionPathWithBar,
+                        functionsFile: functionFetched,
+                        hasDefaultFunction: !!functionFetched.default.name,
+                        id: crypto.randomUUID()
+                    }
+
+                    // push menu obj on array
+                    mapDirOnObj.push(menuBuilted)
+
+                } catch (error) {
+                    console.log(`Falha ao importar modulo ${functionPathWithBar}`);
+                    console.log(error);
                 }
 
-                // push menu obj on array
-                mapDirOnObj.push(menuBuilted)
             }
         }
         this.menuList = mapDirOnObj
@@ -52,7 +62,9 @@ export default class MenuController {
     saveMenu() {
         fs.writeFileSync("./data/menuList.json", JSON.stringify(this.menuList))
     }
-
+    getMenuList() {
+        return this.menuList
+    }
 
 }
 
