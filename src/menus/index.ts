@@ -11,10 +11,10 @@ export default function handle({ message, hooks, menu }: NexusPropsMenuInterface
 
 
     if (message.body == "teste") {
-        hooks.changeMenuByPath({ menuPath: "testes" })
+        hooks.changeMenuByPath({ menuPath: "/testes" })
         return [
-            { type: "message", content: "PolenguinhoOOOONEXUSIndo OIEpara o menu de testes" },
-            { type: "message", content: menuTeste() },
+            { type: "message", content: "digite *teste* para o menu de testes" },
+            { type: "message", content: menuTeste(), messageDelay: 2000 },
         ]
 
     }

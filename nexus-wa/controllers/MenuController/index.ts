@@ -49,7 +49,7 @@ export default class MenuController {
                         path: "/" + functionPathWithBar,
                         functionsFile: functionFetched,
                         hasDefaultFunction: !!functionFetched.default.name,
-                        id: currentMenuUUID.id || crypto.randomUUID()
+                        id: currentMenuUUID?.id || crypto.randomUUID()
                     }
 
                     // push menu obj on array
@@ -71,8 +71,14 @@ export default class MenuController {
         fs.writeFileSync("./data/menuList.json", JSON.stringify(this.menuList))
     }
     getMenuFile() {
-        const fetchFile = fs.readFileSync("./data/menuList.json", "utf-8")
-        return JSON.parse(fetchFile)
+        try {
+            const fetchFile = fs.readFileSync("./data/menuList.json", "utf-8")
+            const parseFile = JSON.parse(fetchFile)
+            return typeof parseFile == "object" ? parseFile : []
+        }
+        catch (err) {
+            return []
+        }
     }
     getMenuList() {
         return this.menuList
