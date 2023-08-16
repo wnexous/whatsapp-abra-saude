@@ -6,6 +6,7 @@ export interface sendMessageByAuthorInterface {
 }
 
 
+
 export type whatsappApiCallbackStupInterface = () => void
 
 export interface whatsappApionMessage {

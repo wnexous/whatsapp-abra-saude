@@ -27,7 +27,7 @@ export interface menuPropsInterface {
 }
 
 export type menuReturnInterface = (
-    messageReturn | imageReturn)
+    messageReturn | imageReturn )
 
 interface messageReturn extends defaultReturn {
     type: "message"

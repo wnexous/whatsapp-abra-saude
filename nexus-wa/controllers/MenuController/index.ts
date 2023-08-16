@@ -42,18 +42,24 @@ export default class MenuController {
                     const functionFetched = await import(filePathToImport)
 
                     // find to verify if menu has exists and pick UUID
-                    const currentMenuUUID = this.currentJsonFile.find(f => f.path == functionPathWithBar)
+                    const currentMenuUUID = this.currentJsonFile.find(f => f.path == ("/" + functionPathWithBar))
 
-                    const menuBuilted: builtMenuInterface = {
-                        name: functionPath[functionPath.length - 1] || CONFIG_MENU_MAPPING.mainMenuName,
-                        path: "/" + functionPathWithBar,
-                        functionsFile: functionFetched,
-                        hasDefaultFunction: !!functionFetched.default.name,
-                        id: currentMenuUUID?.id || crypto.randomUUID()
+                    if (!!functionFetched.default?.name) {
+                        const menuBuilted: builtMenuInterface = {
+                            name: functionPath[functionPath.length - 1] || CONFIG_MENU_MAPPING.mainMenuName,
+                            path: "/" + functionPathWithBar,
+                            functionsFile: functionFetched,
+                            hasDefaultFunction: !!functionFetched.default.name,
+                            id: currentMenuUUID?.id || crypto.randomUUID()
+                        }
+
+                        // push menu obj on array
+                        mapDirOnObj.push(menuBuilted)
+
+                    } else {
+                        console.log("A funcao do path:", functionPathWithBar, "nao possui um nome")
                     }
 
-                    // push menu obj on array
-                    mapDirOnObj.push(menuBuilted)
 
                 } catch (error) {
                     console.log(`Falha ao importar modulo ${functionPathWithBar}`);

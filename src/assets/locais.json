@@ -1,0 +1,92 @@
+[
+  {
+    "name": "HOSPITAL CARDIOLÓGICO COSTANTINI",
+    "description": "Atendimento cardiológico 24H - Especialidades apenas com agendamento",
+    "address": "Rua Pedro Collere, 890 - Vila Izabel",
+    "phone": "(41) 3013-9000",
+    "cost": "$$",
+    "whatsappLink": "https://api.whatsapp.com/send?phone=554130139000&text=Ol%C3%A1!%20Acessei%20o%20site%20do%20Hospital%20e%20gostaria%20de%20falar%20com%20voc%C3%AAs.%20"
+  },
+  {
+    "name": "HOSPITAL DE OLHOS DO PARANÁ",
+    "description": "Emergências / 24h",
+    "address": "Alameda Presidente Taunay, 483 - Praça da Espanha - Batel",
+    "phone": "(41) 3222-4222",
+    "cost": "$",
+    "whatsappLink": "https://api.whatsapp.com/send/?phone=554132224222&text=Agende+via+Whatsapp.&type=phone_number&app_absent=0"
+  },
+  {
+    "name": "HOSPITAL DE FRATURAS XV (ortopedia)",
+    "address": "Rua XV de Novembro, 2223 - Alto da XV",
+    "phone": "(41) 3218-2000",
+    "cost": "$",
+    "whatsappLink": "https://api.whatsapp.com/send/?phone=554132182000&text=Ol%C3%A1%2C+gostaria+de+mais+informa%C3%A7%C3%B5es.&type=phone_number&app_absent=0"
+  },
+  {
+    "name": "HOSPITAL E MATERNIDADE PINHAIS",
+    "address": "Av. Jacob Macanhan, 93 - Centro - Pinhais/PR",
+    "phone": "(41) 3661-1600 / 3661-1616",
+    "cost": "$$"
+  },
+  {
+    "name": "HOSPITAL E MATERNIDADE SANTA BRIGIDA",
+    "address": "Rua Guilherme Pugsley, 1705 - Água Verde",
+    "phone": "(41) 3017-2100 / 98409 - 0048",
+    "cost": "$$$",
+    "whatsappLink": "https://web.whatsapp.com/send?phone=554187510048&text=Ol%C3%A1!%20Que%20legal...%20vamos%20l%C3%A1...%20como%20podemos%20ajudar?"
+  },
+  {
+    "name": "HOSPITAL IPO - Emerg. Otorrinolaringologia",
+    "address": "Av. Rep. Argentina, 1228 - Agua Verde",
+    "phone": "(41) 3314-1500 / 3314-1556",
+    "cost": "$",
+    "whatsappLink": "https://www.hospitalipo.com/?gclid=CjwKCAjww7KmBhAyEiwA5-PUSoNPrJPoj5tFvy7Vz6VE3ItYxzKtNZDmUcJDkHqubqwUKE0GBa8vIRoCuB4QAvD_BwE"
+  },
+  {
+    "name": "HOSPITAL NOVO MUNDO - Emergência em Ortopedia",
+    "address": "Av. Rep. Argentina, 4650 - Novo Mundo",
+    "phone": "(41) 3052-5600 / 99581-9869 / 98795-1927",
+    "surgeryPhone": "98795-2294",
+    "cost": "$",
+    "whatsappLink": "https://web.whatsapp.com/send?phone=5541995819869&text=Podemos%20ajudar%3F"
+  },
+  {
+    "name": "HOSPITAL PEDIÁTRICO MENINO DEUS",
+    "address": "Rua Mal Deodoro, 2805 - Alto da XV",
+    "phone": "(41) 3302-2600",
+    "cost": "$$"
+  },
+  {
+    "name": "HOSPITAL SANTA MADALENA SOFIA",
+    "description": "Atendimento 24h também em odontologia",
+    "address": "Rua Fúlvio José Alice, 381 - Bairro Alto",
+    "phone": "(41) 3525-6151 / 98751-1374",
+    "cost": "$",
+    "whatsappLink": "https://web.whatsapp.com/send?phone=554187511374&text=Ol%C3%A1!%20Que%20legal...%20vamos%20l%C3%A1...%20como%20podemos%20ajudar?"
+  },
+  {
+    "name": "IOC - INST. DE OFTALMOLOGIA DE CURITIBA",
+    "description": "Atendimento 24h",
+    "addresses": [
+      "Av Getulio Vargas, 1500",
+      "Rua Brigadeiro Franco, 2848 - Rebouças"
+    ],
+    "phone": "(41) 3322-2020",
+    "cost": "$$",
+    "whatsappLink": "https://api.whatsapp.com/send?phone=554133222020&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20no%20IOC."
+  },
+  {
+    "name": "OFTALMOCLÍNICA - HOSPITAL DA VISÃO",
+    "address": "Rua Bispo Dom José, 2711 - Seminário",
+    "phone": "(41) 3016-4030",
+    "cost": "$$",
+    "whatsappLink": "https://api.whatsapp.com/send?phone=5541987253455&text=Ol%C3%A1%20Oftalmo%20Curitiba"
+  },
+  {
+    "name": "POLICLINICA CAPÃO RASO",
+    "description": "Pronto Atendimento",
+    "address": "Rua Pedro Zagonel, 17 - Novo Mundo",
+    "phone": "(41) 3021-7654",
+    "cost": "$$"
+  }
+]

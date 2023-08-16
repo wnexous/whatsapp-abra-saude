@@ -25,7 +25,7 @@ export default class DataController {
     }
 
     deleteData(args: { phoneId: string, token: string }) {
-        this.dataFile = this.dataFile.filter(f => f.phoneId == args.phoneId && f.token == args.token)
+        this.dataFile = this.dataFile.filter(f => !(f.phoneId == args.phoneId && f.token == args.token))
     }
 
     getData(args: { phoneId: string, token: string }) {

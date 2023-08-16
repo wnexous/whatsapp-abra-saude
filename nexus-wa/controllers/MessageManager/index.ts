@@ -5,6 +5,7 @@ import WhatsappAdapter from "nexus-wa/adapter/WhatsappAdapter";
 import UserController from "../UserManager";
 import HooksController from "../HooksController";
 import DataController from "../DataController";
+import { Buttons, List } from "whatsapp-web.js";
 
 export default class MessageManager {
     private whatsappAdapter: WhatsappAdapter
@@ -27,11 +28,12 @@ export default class MessageManager {
             const userProfile = await this.userController.fetchUserProfile({ phoneId: msg.phoneId })
             const currentMenu = this.fetchMenu({ menuId: userProfile.currentMenu })
 
-            // instance hooks
-            const instanceUserHooks = new HooksController({ ...userProfile, userController: this.userController, menuController: this.menuController, dataController: this.dataController })
 
             // TRY RUN FUNCTION
             try {
+                // instance hooks
+                const instanceUserHooks = new HooksController({ ...userProfile, userController: this.userController, menuController: this.menuController, dataController: this.dataController })
+
                 const functionInjectProps: menuPropsInterface = {
                     message: msg,
                     hooks: instanceUserHooks,
@@ -41,15 +43,32 @@ export default class MessageManager {
                     },
                     userProfile: userProfile
                 }
-                const runFunction: menuReturnInterface[] = await currentMenu.functionsFile.default(functionInjectProps)
-                if (runFunction.length > 0) {
-                    for (const message of runFunction) {
-                        message.messageDelay && await new Promise((resolve) => setTimeout(resolve, message.messageDelay))
 
-                        if (message.type == "message") this.whatsappAdapter.sendMessageByAuthor({ chatId: msg.phoneId, msg: message.content })
+                try {
+                    const runFunction: menuReturnInterface[] = await currentMenu.functionsFile.default(functionInjectProps)
+                    if (runFunction.length > 0) {
+                        for (const message of runFunction) {
+                            message.messageDelay && await new Promise((resolve) => setTimeout(resolve, message.messageDelay))
 
+                            if (message?.type)
+                                switch (message.type) {
+                                    case "message":
+                                        this.whatsappAdapter.sendMessageByAuthor({ chatId: msg.phoneId, msg: message.content })
+                                        break;
+                                  
+
+                                    default:
+                                        break;
+                                }
+
+                        }
                     }
+
+                } catch (error) {
+                    console.log("erro ao rodar funcao", error);
+
                 }
+
 
             } catch (error) {
                 new Error("error when try run function inside menu. Error message:", error)

@@ -1,19 +1,17 @@
 import { builtMenuInterface } from "nexus-wa/controllers/MenuController/interface"
 import DeployAdapter from "../adapter"
 import DeployController from "../controllers"
-import { PrismaClient } from "@prisma/client"
 import fs from "fs"
 import shellJs from "shelljs"
+import { PrismaClient } from "@prisma/client"
 export default async () => {
     const { WhatsappAdapter, WebApi } = DeployAdapter
     const { MessageManager, UserManager, MenuController, DataController } = DeployController
 
-    console.log("Starting deploy instances")
     // ADAPTERD
     const whatsappAdapter = new WhatsappAdapter()
-    const databaseAdapter = new PrismaClient()
-    // const webApi = new WebApi()
-    // CONTROLLER
+
+    const databaseAdapter = new PrismaClient({ errorFormat: "pretty" })
     const menuController = new MenuController()
     const dataController = new DataController()
 
@@ -24,7 +22,6 @@ export default async () => {
 
     const userController = new UserManager({
         databaseAdapter,
-        whatsappAdapter,
         menuController: menuMapInstance
     })
 
@@ -41,7 +38,6 @@ export default async () => {
         menuMapInstance = await new Promise<builtMenuInterface[]>(resolve => menuController.setup(resolve))
         messageManager.reloadMenuController(menuMapInstance)
         userController.reloadMenuController(menuMapInstance)
-        console.log("Atualizado com sucesso");
     })
 
 }
@@ -51,12 +47,21 @@ function liveRefresh(dir: string, callback: () => void) {
     const watchPath = __dirname + dir
     fs.watch(watchPath, { recursive: true, persistent: true }, (event, filename) => {
 
-        // save last archive to block multi requests
-        const getFile = fs.readFileSync(watchPath + filename, "utf-8")
-        if (getFile != filterDuplicateRequest) {
-            console.log(`Atualização em ${filename} encontrada.`);
-            callback()
-            filterDuplicateRequest = getFile
+        let insidePath = filename.split("\\").join("/")
+        try {
+            const getFile = fs.readFileSync(watchPath + filename, "utf-8")
+
+            if (getFile != filterDuplicateRequest) {
+                // delete require.cache[require.resolve(watchPath + insidePath)];
+                console.log(`Atualização em ${filename} encontrada.`);
+                callback()
+                filterDuplicateRequest = getFile
+            }
+
+        } catch (error) {
+            console.log("erro ao ler arquivo");
+            console.log(error);
         }
+
     })
 }

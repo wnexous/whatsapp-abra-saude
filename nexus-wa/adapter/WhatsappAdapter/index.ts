@@ -1,4 +1,4 @@
-import { Client, LocalAuth, Message } from "whatsapp-web.js";
+import { Buttons, Client, LocalAuth, Message } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import { LogtimerWhatsappAdapter } from "../../utils/logtimer/adapter/whatsapp_api";
 import { sendMessageByAuthorInterface, whatsappApiCallbackStupInterface, whatsappApionMessage } from "./interface";
@@ -13,6 +13,7 @@ export default class {
     this.whatsapp = new Client({
       puppeteer: { args: ["--no-sandbox"] },
       authStrategy: new LocalAuth(),
+
     });
 
   }
@@ -45,5 +46,6 @@ export default class {
   sendMessageByAuthor(msg: sendMessageByAuthorInterface) {
     return this.whatsapp.sendMessage(msg.chatId, msg.msg);
   }
+
 }
 

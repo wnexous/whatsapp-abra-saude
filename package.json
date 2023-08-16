@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "commonjs",
   "scripts": {
-    "start": " tsc && npx prisma migrate dev --name dev && node ./dist/nexus-wa/index.js",
+    "start": " tsc && npx prisma migrate dev --name abrasaude && node ./dist/nexus-wa/index.js",
     "complete": "npx prisma migrate dev --name ts && ts-node src/index.ts",
     "start:dev": "npx prisma migrate dev --name dev && ts-node-dev --transpile-only ./src/index.ts"
   },
@@ -18,12 +18,11 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "prisma": "^5.1.1",
     "qrcode-terminal": "^0.12.0",
     "shelljs": "^0.8.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#9a6466edbc4af5b5eeea060917c15f86b283f510"
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#df1b070d54ec2c4ba75d29a7ef758704ffaf0da5"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

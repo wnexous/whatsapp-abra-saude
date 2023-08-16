@@ -6,6 +6,5 @@ import { builtMenuInterface } from "../MenuController/interface";
 
 export interface userManagerContructorInterface {
     menuController: builtMenuInterface[]
-    whatsappAdapter: WhatsappAdapter,
     databaseAdapter: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
 }

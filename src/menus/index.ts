@@ -1,17 +1,32 @@
 import { NexusPropsMenuInterface, NexusReturnMenuInterface } from "nexus-wa/global/interfaces/messageController";
-import { menuIntroduction } from "./introdution";
+import { menuInformacaoConvenio } from "./informacao-convenio";
+import { menuConfirmarNomeConvenio } from "./informacao-convenio/confirmar-nome";
 
-export default function handle({ message, hooks, menu }: NexusPropsMenuInterface): NexusReturnMenuInterface {
+export default function handle(props: NexusPropsMenuInterface): NexusReturnMenuInterface {
+    const username = props.hooks.dataManager.getData({ token: "username" })
 
-    // const lastMessage = hooks.dataManager.getData({ token: "lastMessage" }) || { data: "sem mensagens" }
-    hooks.dataManager.setData({ token: "lastMessage", data: message.body })
-
-
-    switch (message.body) {
-        case "introdução":
-            hooks.changeMenuByPath({ menuPath: "/introdution" })
+    switch (props.message.body) {
+        case "1":
+            if (username) {
+                props.hooks.changeMenuByPath({ menuPath: "/informacao-convenio/confirmar-nome" })
+                return [
+                    { type: "message", content: menuConfirmarNomeConvenio(username.data.toString()) },
+                ]
+            }
+            props.hooks.changeMenuByPath({ menuPath: "/informacao-convenio" })
             return [
-                { type: "message", content: menuIntroduction() },
+                ...menuInformacaoConvenio(),
+            ]
+        case "2":
+            if (username) {
+                props.hooks.changeMenuByPath({ menuPath: "/conveniado/confirmar-nome" })
+                return [
+                    { type: "message", content: menuConfirmarNomeConvenio(username.data.toString()) },
+                ]
+            }
+            props.hooks.changeMenuByPath({ menuPath: "/conveniado" })
+            return [
+                ...menuInformacaoConvenio(),
             ]
 
         default:
@@ -22,10 +37,16 @@ export default function handle({ message, hooks, menu }: NexusPropsMenuInterface
 }
 
 export const menuIndex = () => `
-*MENU PRINCIPAL*
+🌼 BEM-VINDO AO ABRA-SAÚDE 🏥✨
 
-Bem vindo ao menu principal
-digite *intrudução* para saber mais sobre o projeto
+Olá! Esperamos que você esteja bem e saudável. 😊 O convênio Abra-Saúde agradece por entrar em contato conosco.
 
-_nexus bot_ by nexous
+Por favor, escolha a opção que melhor se adequa às suas necessidades digitando o número correspondente: 🔢
+
+*1* - 🌟 Descubra os Benefícios do Convênio Abra-Saúde
+*2* - 🙌 Sou um Conveniado Atual
+*3* - 🏥 Tornar-se um Credenciado para Atender Nossos Conveniados
+*4* - 🌐 Sou um Credenciado Atual
+ 
+Estamos aqui para fornecer as informações que você procura e garantir que sua experiência conosco seja excepcional. Escolha a opção desejada ou explore outras alternativas. 💬🌻
 `

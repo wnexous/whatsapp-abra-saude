@@ -16,20 +16,20 @@ export default class HooksController {
 
     }
 
-    async changeMenuByPath(args: changeMenuByPathProps) {
+    public async changeMenuByPath(args: changeMenuByPathProps) {
         const menu = this.menuController.find(m => m.path == args.menuPath)
 
         // caso retorne um menu correto, faz a alteração de menu, caso contrario retorna false
         return menu && await this.userController.changeUserMenu({ phoneId: this.phoneId, menuId: menu.id })
     }
-    async changeMenuByUUID(args: changeMenuByUUIDProps) {
+    public async changeMenuByUUID(args: changeMenuByUUIDProps) {
         const menu = this.menuController.find(m => m.id == args.menuUUID)
 
         // caso retorne um menu correto, faz a alteração de menu, caso contrario retorna false
         return menu && await this.userController.changeUserMenu({ phoneId: this.phoneId, menuId: menu.id })
     }
 
-    dataManager = {
+    public dataManager = {
         setData: (args: { token: string, data: string | object }) => {
             this.dataController.setData({ phoneId: this.phoneId, data: args.data, token: args.token })
         },

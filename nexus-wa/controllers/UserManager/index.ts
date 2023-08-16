@@ -7,17 +7,14 @@ import MenuController from "../MenuController";
 import { builtMenuInterface } from "../MenuController/interface";
 
 export default class UserController {
-    protected databaseAdapter: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
-    protected whatsappAdapter: WhatsappAdapter
-    protected menuController: builtMenuInterface[]
-    constructor({ databaseAdapter, whatsappAdapter, menuController }: userManagerContructorInterface) {
+    private databaseAdapter: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
+    private menuController: builtMenuInterface[]
+    constructor({ databaseAdapter, menuController }: userManagerContructorInterface) {
 
         console.log("[controller] starting UserController");
 
         this.databaseAdapter = databaseAdapter
-        this.whatsappAdapter = whatsappAdapter
         this.menuController = menuController
-
 
     }
 
