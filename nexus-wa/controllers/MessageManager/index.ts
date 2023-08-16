@@ -55,12 +55,9 @@ export default class MessageManager {
                                     case "message":
                                         this.whatsappAdapter.sendMessageByAuthor({ chatId: msg.phoneId, msg: message.content })
                                         break;
-                                  
-
                                     default:
                                         break;
                                 }
-
                         }
                     }
 
