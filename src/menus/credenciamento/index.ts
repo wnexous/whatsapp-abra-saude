@@ -1,5 +1,5 @@
 import { NexusArrowFunct, NexusBuildMultiMessage } from "nexus-wa/global/interfaces/messageController";
-import { menuConfirmarNomeCredenciamento } from "./confirmar-nome";
+import { menuConfirmarNomeCredenciamento } from "./confirmar-empresa";
 
 const Credenciamento: NexusArrowFunct = (props) => {
 
@@ -7,7 +7,7 @@ const Credenciamento: NexusArrowFunct = (props) => {
     if (props.message.body.length > 3) {
 
         props.hooks.dataManager.setData({ token: "enterprise", data: props.message.body })
-        props.hooks.changeMenuByPath({ menuPath: props.menu.currentMenu.path + "/confirmar-nome" })
+        props.hooks.changeMenuByPath({ menuPath: props.menu.currentMenu.path + "/confirmar-empresa" })
         return [
             { type: "message", content: menuConfirmarNomeCredenciamento(props.message.body) },
         ]

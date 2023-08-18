@@ -44,7 +44,7 @@ export default class {
   }
 
   sendMessageByAuthor(msg: sendMessageByAuthorInterface) {
-    return this.whatsapp.sendMessage(msg.chatId, msg.msg);
+    return this.whatsapp.sendMessage(msg.chatId, msg.msg, { parseVCards: true, });
   }
 
 }

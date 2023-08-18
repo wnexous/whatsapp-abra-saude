@@ -2,6 +2,7 @@ import { NexusPropsMenuInterface, NexusReturnMenuInterface } from "nexus-wa/glob
 import { menuInformacaoConvenio } from "./informacao-convenio";
 import { menuConfirmarNomeConvenio } from "./informacao-convenio/confirmar-nome";
 import { menuCredenciamento } from "./credenciamento";
+import { menuCredenciado } from "./credenciados";
 
 export default function handle(props: NexusPropsMenuInterface): NexusReturnMenuInterface {
     const username = props.hooks.dataManager.getData({ token: "username" })
@@ -34,6 +35,12 @@ export default function handle(props: NexusPropsMenuInterface): NexusReturnMenuI
             return [
                 { type: "message", content: "certo, estamos te direcionando ao credenciamento para atender aos conveniados" },
                 ...menuCredenciamento()
+            ]
+        case "4":
+            props.hooks.changeMenuByPath({ menuPath: "/credenciados" })
+            return [
+                { type: "message", content: "certo, estamos te direcionando para o atendimento aos credenciados" },
+                { type: "message", content: menuCredenciado() }
             ]
 
         default:
