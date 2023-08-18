@@ -33,13 +33,13 @@ export default function handle(props: NexusPropsMenuInterface): NexusReturnMenuI
         case "3":
             props.hooks.changeMenuByPath({ menuPath: "/credenciamento" })
             return [
-                { type: "message", content: "certo, estamos te direcionando ao credenciamento para atender aos conveniados" },
+                { type: "message", content: "certo, estamos te direcionando ao credenciamento para atender aos conveniados." },
                 ...menuCredenciamento()
             ]
         case "4":
             props.hooks.changeMenuByPath({ menuPath: "/credenciados" })
             return [
-                { type: "message", content: "certo, estamos te direcionando para o atendimento aos credenciados" },
+                { type: "message", content: "certo, estamos te direcionando para o atendimento aos credenciados." },
                 { type: "message", content: menuCredenciado() }
             ]
 

@@ -17,6 +17,7 @@ export default async () => {
 
     // wait menus is mappeds to skip - when menu is mapped, the promisse is resolved by callback
     let menuMapInstance = await new Promise<builtMenuInterface[]>(resolve => menuController.setup(resolve))
+    console.log('menuMapInstance', menuMapInstance)
     // wait whatsapp starts to init messageManager
     await new Promise(resolve => whatsappAdapter.setup(() => resolve(0)))
 
@@ -33,19 +34,21 @@ export default async () => {
         dataController
     })
 
-    liveRefresh("/../../../src/", async () => {
+    false && liveRefresh("/../../../src/", async () => {
         shellJs.exec("npx tsc")
         menuMapInstance = await new Promise<builtMenuInterface[]>(resolve => menuController.setup(resolve))
         messageManager.reloadMenuController(menuMapInstance)
         userController.reloadMenuController(menuMapInstance)
     })
 
+
 }
 
 function liveRefresh(dir: string, callback: () => void) {
     let filterDuplicateRequest: string
     const watchPath = __dirname + dir
-    fs.watch(watchPath, { recursive: true, persistent: true }, (event, filename) => {
+    fs.watch(watchPath, { persistent: true, recursive: true }, (event, filename) => {
+        console.log(filename);
 
         let insidePath = filename.split("\\").join("/")
         try {

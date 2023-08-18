@@ -16,6 +16,7 @@ export default class MenuController {
 
         const pathname = __dirname + "/" + CONFIG_MENU_MAPPING.menuFolderPath
         let readMenuFolder = fs.readdirSync(pathname, { recursive: true })
+        console.log('readMenuFolder', readMenuFolder)
 
         // get current json file
         this.currentJsonFile = this.getMenuFile()
@@ -29,7 +30,7 @@ export default class MenuController {
 
         // mapping all functions readed by recursive menu
         for (let row of readMenuFolder) {
-            const stringSplited = row.split("\\")
+            const stringSplited = row.split("/")
 
             if (stringSplited[stringSplited.length - 1] == CONFIG_MENU_MAPPING.indexFileName) {
                 const functionPath = stringSplited.slice(0, stringSplited.length - 1)
